@@ -4,11 +4,11 @@ const https = require("https");
 const RENDER_SERVICE_ID = process.env.RENDER_SERVICE_ID;
 const RENDER_API_KEY = process.env.RENDER_API_KEY;
 
-const HEALTH_CHECK_URL = "https://your-backend-url.com/health"; // Change this to your actual health check URL
+const HEALTH_CHECK_URL = "https://vitravel.onrender.com/healthz"; // Change this to your actual health check URL
 const RENDER_RESTART_URL = `https://api.render.com/v1/services/${RENDER_SERVICE_ID}/restart`;
 
 if (!RENDER_SERVICE_ID || !RENDER_API_KEY) {
-    console.error("❌ Missing API keys! Make sure RENDER_SERVICE_ID and RENDER_API_KEY are set in GitHub Secrets.");
+    console.error("❌ Missing API keys!");
     process.exit(1);
 }
 
