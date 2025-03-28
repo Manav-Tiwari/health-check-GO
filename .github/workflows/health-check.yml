@@ -1,4 +1,4 @@
-name: Health Check
+name: Health Check & Restart
 
 on:
   schedule:
@@ -18,7 +18,10 @@ jobs:
           node-version: 18  # Adjust if needed
 
       - name: Install Dependencies
-        run: npm install  # Only needed if you use external packages
+        run: npm install  # Only needed if using external packages
 
-      - name: Run Health Check Script
+      - name: Run Health Check & Restart
+        env:
+          RENDER_SERVICE_ID: ${{ secrets.RENDER_SERVICE_ID }}
+          RENDER_API_KEY: ${{ secrets.RENDER_API_KEY }}
         run: node healthCheck.js
