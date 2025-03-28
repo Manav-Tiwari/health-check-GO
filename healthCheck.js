@@ -8,7 +8,7 @@ const HEALTH_CHECK_URL = "https://vitravel.onrender.com/healthz"; // Change this
 const RENDER_RESTART_URL = `https://api.render.com/v1/services/${RENDER_SERVICE_ID}/restart`;
 
 if (!RENDER_SERVICE_ID || !RENDER_API_KEY) {
-    console.error("❌ Missing API keys!");
+    console.error("Missing API keys!");
     process.exit(1);
 }
 
@@ -17,11 +17,11 @@ async function checkServerHealth() {
     return new Promise((resolve, reject) => {
         https.get(HEALTH_CHECK_URL, (res) => {
             if (res.statusCode === 200) {
-                resolve("✅ Server is healthy!");
+                resolve("Server is healthy!");
             } else {
-                reject(new Error(`⚠️ Server returned status: ${res.statusCode}`));
+                reject(new Error(` Server returned status: ${res.statusCode}`));
             }
-        }).on("error", (err) => reject(new Error(`❌ Health check failed: ${err.message}`)));
+        }).on("error", (err) => reject(new Error(` Health check failed: ${err.message}`)));
     });
 }
 
@@ -41,14 +41,14 @@ async function restartService() {
             res.on("data", (chunk) => { data += chunk; });
             res.on("end", () => {
                 if (res.statusCode === 200) {
-                    resolve("🔄 Successfully restarted the Render service!");
+                    resolve(" Successfully restarted the Render service!");
                 } else {
-                    reject(new Error(`❌ Render API Error: ${res.statusCode} - ${data}`));
+                    reject(new Error(`Render API Error: ${res.statusCode} - ${data}`));
                 }
             });
         });
 
-        req.on("error", (err) => reject(new Error(`❌ Restart request failed: ${err.message}`)));
+        req.on("error", (err) => reject(new Error(` Restart request failed: ${err.message}`)));
         req.end();
     });
 }
@@ -60,7 +60,7 @@ async function monitorServer() {
         console.log(healthStatus);
     } catch (error) {
         console.error(error.message);
-        console.log("⚠️ Server is down! Restarting...");
+        console.log("Server is down! Restarting...");
         try {
             const restartStatus = await restartService();
             console.log(restartStatus);
