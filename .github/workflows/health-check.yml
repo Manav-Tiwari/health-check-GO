@@ -17,9 +17,6 @@ jobs:
         with:
           node-version: 18  # Adjust if needed
 
-      - name: Install Dependencies
-        run: npm install  # Only needed if using external packages
-
       - name: Run Health Check & Restart
         env:
           RENDER_SERVICE_ID: ${{ secrets.RENDER_SERVICE_ID }}
